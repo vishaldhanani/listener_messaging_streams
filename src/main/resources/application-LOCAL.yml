@@ -1,0 +1,48 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition: process
+      bindings:
+        process-in-0:
+          group: consumer-group
+          concurrency: 1
+          headerMode: none
+          destination: MESSAGING-TIMER-EXAMPLE
+          valueSerde: io.confluent.kafka.streams.serdes.protobuf.KafkaProtobufSerde
+        streams:
+          binder:
+            configuration:
+              schema.registry.url: http://localhost:8081
+#              default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#              default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#spring:
+#  cloud:
+#    function:
+#      definition: process
+#    stream:
+#      bindings:
+#        process-in-0:
+#          consumer:
+#            max-attempts: 3
+#            valueSerde: io.confluent.kafka.streams.serdes.protobuf.KafkaProtobufSerde
+#            back-off-initial-interval: 100
+#            retryable-exceptions:
+#              javax:
+#                validation:
+#                  ValidationException: false
+#          destination: MESSAGING-TIMER-EXAMPLE
+#          group: consumer-group
+#          concurrency: 1
+#          headerMode: none
+#          useNativeDecoding: true
+#      kafka:
+#        streams:
+#          binder:
+#            brokers: localhost:9092
+#            configuration:
+#              schema.registry.url: http://localhost:8081
+#              commit.interval.ms: 1000
+#              auto-offset-reset: "earliest"
+##              default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+##              default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
